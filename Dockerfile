@@ -9,6 +9,7 @@ RUN mvn dependency:go-offline -B
 
 # Copiamos el resto del código y construimos el paquete
 COPY src /app/src
+COPY application.properties /app/src/main/resources/application.properties
 RUN mvn clean package -DskipTests
 
 # Etapa 2: Configurar y ejecutar Keycloak junto con la aplicación Spring Boot
