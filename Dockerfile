@@ -38,8 +38,7 @@ ENV KEYCLOAK_PASSWORD=admin
 COPY --from=build /app/target/*.jar /app/app.jar
 
 # Exponemos los puertos necesarios
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 9090 8080 8081 9091
 
 # Script de entrada para iniciar Keycloak y la aplicación Spring Boot
 COPY entrypoint.sh /app/entrypoint.sh
