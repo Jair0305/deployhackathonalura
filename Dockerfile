@@ -10,6 +10,10 @@ RUN mvn dependency:go-offline -B
 # Copiamos el resto del código y construimos el paquete
 COPY src /app/src
 COPY src/main/resources/application.properties /app/src/main/resources/application.properties
+
+# Verificamos y convertimos la codificación de application.properties a UTF-8 sin BOM
+RUN apt-get update && apt-get install -y dos2unix
+RUN dos2unix /app/src/main/resources/application.properties
 RUN mvn clean package -DskipTests
 
 # Etapa 2: Configurar y ejecutar Keycloak junto con la aplicación Spring Boot
@@ -37,11 +41,9 @@ ENV KEYCLOAK_PASSWORD=admin
 # Copiamos el archivo JAR de la aplicación desde la etapa de construcción
 COPY --from=build /app/target/*.jar /app/app.jar
 
-# Exponemos los puertos necesarios
+# Exponemos el puerto que utiliza Spring Boot
 EXPOSE 9090
-EXPOSE 9091
-EXPOSE 8080
-EXPOSE 8081
+
 # Script de entrada para iniciar Keycloak y la aplicación Spring Boot
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
