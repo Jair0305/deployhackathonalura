@@ -41,7 +41,7 @@ COPY --from=build /app/target/*.jar /app/app.jar
 EXPOSE 9090
 EXPOSE 9091
 EXPOSE 8080
-
+EXPOSE 8081
 # Script de entrada para iniciar Keycloak y la aplicación Spring Boot
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
