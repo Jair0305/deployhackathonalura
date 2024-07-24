@@ -33,10 +33,7 @@ import org.springframework.http.HttpHeaders;
                         description = "DEV SERVER",
                         url = "http://localhost:9090"
                 ),
-        },
-        security = @SecurityRequirement(
-                name = "Security Token"
-        )
+        }
 )
 @SecurityScheme(
         name = "Security Token",
